@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": "^7.1",
+        "php": "7.x || 8.x",
         "silverstripe/framework": "~4.0",
         "silverstripe/cms": "~4.0"
     },
