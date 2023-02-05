@@ -33,13 +33,17 @@ class GASiteConfigExtension extends DataExtension
      */
     public function onBeforeWrite()
     {
-        $parts = explode("-", $this->owner->getField('GoogleCode'));
+        $parts = explode("-", (string) $this->owner->getField('GoogleCode'));
 
-        if ($parts[0] === "GTM") {
-            $this->owner->setField('AnalyticType', 'GTM');
+        if (count($parts)) {
+            if ($parts[0] === "GTM") {
+                $this->owner->setField('AnalyticType', 'GTM');
 
-        } else if ($parts[0] === "UA") {
-            $this->owner->setField('AnalyticType', 'UA');
+            } else {
+                if ($parts[0] === "UA") {
+                    $this->owner->setField('AnalyticType', 'UA');
+                }
+            }
         }
 
         parent::onBeforeWrite();
