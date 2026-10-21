@@ -5,7 +5,10 @@ Comes with Google snippets that need to be included in your theme's templates.
 
 ## Requirements
 
-* SilverStripe 4.0 and above
+* Silverstripe CMS 6
+* PHP 8.3 or later
+
+For Silverstripe CMS 4 and 5, use the 2.x releases.
 
 ## Installation
 

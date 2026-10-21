@@ -3,9 +3,8 @@
 namespace Chrometoaster\GA_GTM\Tests;
 
 use Chrometoaster\GA_GTM\Formfields\GACodeField;
-use ReflectionMethod;
+use SilverStripe\Core\Validation\ValidationResult;
 use SilverStripe\Dev\SapphireTest;
-use SilverStripe\Forms\FormField;
 
 /**
  * Class GACodeFieldTest
@@ -68,24 +67,11 @@ class GACodeFieldTest extends SapphireTest
     /**
      * Validate a code with the field and return the validation result.
      *
-     * FormField::validate() returns the result itself on CMS 6; on CMS 5 it
-     * records errors on the validator it is given.
-     *
      * @param string $code
-     * @return \SilverStripe\Core\Validation\ValidationResult|\SilverStripe\ORM\ValidationResult
+     * @return ValidationResult
      */
     private function validateCode($code)
     {
-        $field = GACodeField::create('GoogleCode', 'Google code')->setValue($code);
-
-        if ((new ReflectionMethod(FormField::class, 'validate'))->getNumberOfParameters() === 0) {
-            return $field->validate();
-        }
-
-        $validatorClass = 'SilverStripe\\Forms\\RequiredFields';
-        $validator = new $validatorClass();
-        $field->validate($validator);
-
-        return $validator->getResult();
+        return GACodeField::create('GoogleCode', 'Google code')->setValue($code)->validate();
     }
 }
