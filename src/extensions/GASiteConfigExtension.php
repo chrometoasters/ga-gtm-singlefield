@@ -4,14 +4,14 @@ namespace Chrometoaster\GA_GTM\Extensions;
 
 use Chrometoaster\GA_GTM\Formfields\GACodeField;
 use SilverStripe\Forms\FieldList;
-use SilverStripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 
 /**
  * Class GASiteConfig
  *
  * Adapted to fit the needs, originally based on https://github.com/peavers/silverstripe-google-analytics.
  */
-class GASiteConfigExtension extends DataExtension
+class GASiteConfigExtension extends Extension
 {
 
     private static $db = [
@@ -45,8 +45,6 @@ class GASiteConfigExtension extends DataExtension
                 }
             }
         }
-
-        parent::onBeforeWrite();
     }
 
 }
