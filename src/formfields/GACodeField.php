@@ -2,6 +2,7 @@
 
 namespace Chrometoaster\GA_GTM\Formfields;
 
+use SilverStripe\Core\Validation\ValidationResult;
 use SilverStripe\Forms\TextField;
 
 /**
@@ -20,30 +21,31 @@ class GACodeField extends TextField
     /**
      * Simple validation to make sure the input matches the expected pattern.
      *
-     * @param $validator
-     * @return bool
+     * @return ValidationResult
      */
-    public function validate($validator)
+    public function validate(): ValidationResult
     {
-        // No value set so accept
-        if (empty($this->value)) {
-            return true;
-        } else {
-            $parts = explode("-", $this->value);
-        }
+        $this->beforeExtending('updateValidate', function (ValidationResult $result) {
+            // No value set so accept
+            if (empty($this->value)) {
+                return;
+            } else {
+                $parts = explode("-", $this->value);
+            }
 
-        if ($parts[0] === "GTM" && (mb_strlen($parts[1]) >= 4) && (mb_strlen($parts[1]) <= 8)) {
-            return true;
+            if ($parts[0] === "GTM" && (mb_strlen($parts[1]) >= 4) && (mb_strlen($parts[1]) <= 8)) {
+                return;
 
-        } else if (($parts[0] === "UA")
-            && (mb_strlen($parts[1]) >= 8 && mb_strlen($parts[1]) < 10)
-            && (mb_strlen($parts[2]) >= 1 && mb_strlen($parts[2]) < 3)) {
-            return true;
+            } else if (($parts[0] === "UA")
+                && (mb_strlen($parts[1]) >= 8 && mb_strlen($parts[1]) < 10)
+                && (mb_strlen($parts[2]) >= 1 && mb_strlen($parts[2]) < 3)) {
+                return;
 
-        } else {
-            $validator->validationError($this->name, "ERROR: This isn't a valid Universal or Tag Manager code. Must be in either UA-XXXXXXXX-X or GTM-XXXXXX format.", "validation");
-        }
+            } else {
+                $result->addFieldError($this->name, "ERROR: This isn't a valid Universal or Tag Manager code. Must be in either UA-XXXXXXXX-X or GTM-XXXXXX format.", "validation");
+            }
+        });
 
-        return false;
+        return parent::validate();
     }
 }

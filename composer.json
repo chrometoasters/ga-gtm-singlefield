@@ -10,9 +10,9 @@
         }
     ],
     "require": {
-        "php": "7.x || 8.x",
-        "silverstripe/framework": "^4.0 || ^5.0",
-        "silverstripe/cms": "^4.0 || ^5.0"
+        "php": "^8.3",
+        "silverstripe/framework": "^6",
+        "silverstripe/cms": "^6"
     },
     "minimum-stability": "stable",
     "license": "BSD-3-Clause"
